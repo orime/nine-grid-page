@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { toJpeg } from 'html-to-image';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -24,14 +23,6 @@ const Grid = () => {
     });
   };
 
-  const handleExportImage = async () => {
-    const element = document.getElementById('grid');
-    const image = await toJpeg(element, { quality: 0.95 });
-    const link = document.createElement('a');
-    link.download = 'grid-image.jpeg';
-    link.href = image;
-    link.click();
-  };
 
   return (
     <div id="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
@@ -56,7 +47,7 @@ const Grid = () => {
       ))}
       <div></div>
       <button onClick={handleExportText} >Export as Text</button>
-      <button onClick={handleExportImage} >Export as Image</button>
+      
       <ToastContainer position="top-center" limit={1} />
     </div>
   );
