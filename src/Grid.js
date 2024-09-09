@@ -3,7 +3,7 @@ import { toJpeg } from 'html-to-image';
 
 const Grid = () => {
   const [question, setQuestion] = useState('');
-  const [answers, setAnswers] = useState(Array(8).fill(''));
+  const [answers, setAnswers] = useState(Array(9).fill(''));
 
   const handleExportText = () => {
     const text = `问题：${question}\n` + answers.map((answer, index) => `答案${index + 1}：${answer || '暂无，请继续发挥聪明才智吧'}`).join('\n');
