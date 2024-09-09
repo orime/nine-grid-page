@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
 import { toJpeg } from 'html-to-image';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Grid = () => {
   const [question, setQuestion] = useState('');
   const [answers, setAnswers] = useState(Array(9).fill(''));
 
   const handleExportText = () => {
-    const text = `问题：${question}\n` + answers.map((answer, index) => `答案${index + 1}：${answer || '暂无，请继续发挥聪明才智吧'}`).join('\n');
+    const text = `问题：${question}\n` + answers.map((answer, index) => `答案${index + 1}：${answer}`).join('\n');
     navigator.clipboard.writeText(text).then(() => {
-      alert('Text copied to clipboard');
+      toast.success('Text copied to clipboard', {
+        position: 'top-right',
+        autoClose: 500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }).catch((err) => {
+      toast.error('Failed to copy text');
     });
   };
 
@@ -24,7 +36,7 @@ const Grid = () => {
   return (
     <div id="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
       <div style={{ gridColumn: '1 / -1', gridRow: '1 / 2', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <input
+        <textarea
           type="text"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
@@ -33,7 +45,7 @@ const Grid = () => {
         />
       </div>
       {answers.map((_, index) => (
-        <input
+        <textarea
           key={index}
           type="text"
           value={answers[index]}
@@ -45,6 +57,7 @@ const Grid = () => {
       <div></div>
       <button onClick={handleExportText} >Export as Text</button>
       <button onClick={handleExportImage} >Export as Image</button>
+      <ToastContainer position="top-center" limit={1} />
     </div>
   );
 };
