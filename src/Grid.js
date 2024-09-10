@@ -23,6 +23,11 @@ const Grid = () => {
     });
   };
 
+  const handleReset = () => {
+    setQuestion('');
+    setAnswers(Array(9).fill(''));
+  }
+
 
   return (
     <div id="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
@@ -47,6 +52,7 @@ const Grid = () => {
       ))}
       <div></div>
       <button onClick={handleExportText} >Export as Text</button>
+      <button onClick={handleReset} >Reset</button>
       
       <ToastContainer position="top-center" limit={1} />
     </div>
